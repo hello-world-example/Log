@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conf | Log</title>
+
+
+<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+
+
+
+
+<link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Log/">Log</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fLog\2f docs\2fRsyslog\2f Conf\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a></li>
+<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+
+<ul>
+<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Log/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Conf</strong>
+</header>
+
+      
+<article class="markdown"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># rsyslog configuration file</span>
+
+<span style="color:#75715e"># For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html</span>
+<span style="color:#75715e"># If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html</span>
+
+<span style="color:#75715e">#### MODULES ####</span>
+
+<span style="color:#75715e"># The imjournal module bellow is now used as a message source instead of imuxsock.</span>
+$ModLoad imuxsock <span style="color:#75715e"># provides support for local system logging (e.g. via logger command)</span>
+$ModLoad imjournal <span style="color:#75715e"># provides access to the systemd journal</span>
+<span style="color:#75715e">#$ModLoad imklog # reads kernel messages (the same are read from journald)</span>
+<span style="color:#75715e">#$ModLoad immark  # provides --MARK-- message capability</span>
+
+<span style="color:#75715e"># Provides UDP syslog reception</span>
+<span style="color:#75715e">#$ModLoad imudp</span>
+<span style="color:#75715e">#$UDPServerRun 514</span>
+
+<span style="color:#75715e"># Provides TCP syslog reception</span>
+<span style="color:#75715e">#$ModLoad imtcp</span>
+<span style="color:#75715e">#$InputTCPServerRun 514</span>
+
+
+<span style="color:#75715e">#### GLOBAL DIRECTIVES ####</span>
+
+<span style="color:#75715e"># Where to place auxiliary files</span>
+$WorkDirectory /var/lib/rsyslog
+
+<span style="color:#75715e"># Use default timestamp format</span>
+$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+
+<span style="color:#75715e"># File syncing capability is disabled by default. This feature is usually not required,</span>
+<span style="color:#75715e"># not useful and an extreme performance hit</span>
+<span style="color:#75715e">#$ActionFileEnableSync on</span>
+
+<span style="color:#75715e"># Include all config files in /etc/rsyslog.d/</span>
+$IncludeConfig /etc/rsyslog.d/*.conf
+
+<span style="color:#75715e"># Turn off message reception via local log socket;</span>
+<span style="color:#75715e"># local messages are retrieved through imjournal now.</span>
+$OmitLocalLogging on
+
+<span style="color:#75715e"># File to store the position in the journal</span>
+$IMJournalStateFile imjournal.state
+
+
+<span style="color:#75715e">#### RULES ####</span>
+
+<span style="color:#75715e"># Log all kernel messages to the console.</span>
+<span style="color:#75715e"># Logging much else clutters up the screen.</span>
+<span style="color:#75715e">#kern.*                                                 /dev/console</span>
+
+<span style="color:#75715e"># Log anything (except mail) of level info or higher.</span>
+<span style="color:#75715e"># Don&#39;t log private authentication messages!</span>
+*.info;mail.none;authpriv.none;cron.none                /var/log/messages
+
+<span style="color:#75715e"># The authpriv file has restricted access.</span>
+authpriv.*                                              /var/log/secure
+
+<span style="color:#75715e"># Log all the mail messages in one place.</span>
+mail.*                                                  -/var/log/maillog
+
+
+<span style="color:#75715e"># Log cron stuff</span>
+cron.*                                                  /var/log/cron
+
+<span style="color:#75715e"># Everybody gets emergency messages</span>
+*.emerg                                                 :omusrmsg:*
+
+<span style="color:#75715e"># Save news errors of level crit and higher in a special file.</span>
+uucp,news.crit                                          /var/log/spooler
+
+<span style="color:#75715e"># Save boot messages also to boot.log</span>
+local7.*                                                /var/log/boot.log
+
+
+<span style="color:#75715e"># ### begin forwarding rule ###</span>
+<span style="color:#75715e"># The statement between the begin ... end define a SINGLE forwarding</span>
+<span style="color:#75715e"># rule. They belong together, do NOT split them. If you create multiple</span>
+<span style="color:#75715e"># forwarding rules, duplicate the whole block!</span>
+<span style="color:#75715e"># Remote Logging (we use TCP for reliable delivery)</span>
+#
+<span style="color:#75715e"># An on-disk queue is created for this action. If the remote host is</span>
+<span style="color:#75715e"># down, messages are spooled to disk and sent when it is up again.</span>
+<span style="color:#75715e">#$ActionQueueFileName fwdRule1 # unique name prefix for spool files</span>
+<span style="color:#75715e">#$ActionQueueMaxDiskSpace 1g   # 1gb space limit (use as much as possible)</span>
+<span style="color:#75715e">#$ActionQueueSaveOnShutdown on # save messages to disk on shutdown</span>
+<span style="color:#75715e">#$ActionQueueType LinkedList   # run asynchronously</span>
+<span style="color:#75715e">#$ActionResumeRetryCount -1    # infinite retries if host is down</span>
+<span style="color:#75715e"># remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional</span>
+<span style="color:#75715e">#*.* @@remote-host:514</span>
+<span style="color:#75715e"># ### end of the forwarding rule ###</span></code></pre></div></article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified Sep 21, 2019 by kaibin.yang' target="_blank" rel="noopener">
+      <img src="/Log/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Conf.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

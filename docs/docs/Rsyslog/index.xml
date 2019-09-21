@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Log</title>
+    <link>https://hello-world-example.github.io/Log/docs/Rsyslog/</link>
+    <description>Recent content on Log</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="https://hello-world-example.github.io/Log/docs/Rsyslog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Log/docs/Rsyslog/Conf/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Log/docs/Rsyslog/Conf/</guid>
+      <description># rsyslog configuration file # For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html # If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html #### MODULES #### # The imjournal module bellow is now used as a message source instead of imuxsock. $ModLoad imuxsock # provides support for local system logging (e.g. via logger command) $ModLoad imjournal # provides access to the systemd journal #$ModLoad imklog # reads kernel messages (the same are read from journald) #$ModLoad immark # provides --MARK-- message capability # Provides UDP syslog reception #$ModLoad imudp #$UDPServerRun 514 # Provides TCP syslog reception #$ModLoad imtcp #$InputTCPServerRun 514 #### GLOBAL DIRECTIVES #### # Where to place auxiliary files $WorkDirectory /var/lib/rsyslog # Use default timestamp format $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat # File syncing capability is disabled by default.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Log/docs/Rsyslog/Core/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Log/docs/Rsyslog/Core/</guid>
+      <description>rsyslog 核心概念 rsyslog 日志是使用 rsyslogd 守护进程进行管理的，该进程是之前版本的系统中 syslogd 的升级版，对原有的日志系统进行了功能的扩展，提供了诸如过滤器、日志加密保护、各种配置选项、输入输出模块，支持通过 TCP 或者 UDP 协议进行传输等。
+rsyslog 的配置文件为 /etc/rsyslog.conf , 大多数日志文件都位于 /var/log/ 目录中。
+格式 FACILITY.PRIORITY	action   FACILITY 设施、服务名称 PRIORITY 优先级、级别 FACILITY.PRIORITY = 基于优先级的过滤器  服务名称（FACILITY）    序号 类别 说明     0 kern(kernel) 内核信息   1 user 用户相关   2 mail 邮件收发信息   3 daemon 守护进程、系统服务产生的信息   4 auth 认证、授权，例如 login, ssh, su 等需要账户密码的东东   5 syslog syslog 自己的日志   6 lpr 打印机相关   7 news 新闻先关   8 uucp 全名为 Unix to Unix Copy Protocol，早期用与 unix 系统间信息交换   9 cron 任务相关   10 authpriv 与 auth 类似，但记录较多帐号私人的信息，包括pam模块的运作等！   11 ftp ftp 服务相关   16~23 local0 ~ local7 预留给用户自己定义使用的    * 所有的 FACILITY    级别    数值等级 等级名称 说明      none 不需要记录日志    * 所有日志级别   7 debug 调试日志        6 info 基本说明信息   5 notice 相对比info 稍微重要的信息   4 warning(warn) 可能有问题，但是还不至于影响到某个 daemon 的运作；info/notice/warn 这三个级别都是在告知一些还不至于造成系统运行的问题        3 err(error) 错误信息，告知该错误会在成服务无法启动   2 crit 比error更严重的错误信息   1 alert 已经很验证的问题了，比crit更严重        0 emerg 系统几乎要挂了，常用于硬件问题    特殊符号  .</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Log/docs/Rsyslog/Desc-log-file/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Log/docs/Rsyslog/Desc-log-file/</guid>
+      <description>常见日志文件说明 /var/log/secure 系统安全相关的日志 - 谁登陆了 - 什么时间登陆了 - 通过哪个账号登陆了 - 从哪台主机登陆了 - 密码输入错误了几次
+/var/log/messages 这个文件很重要，几乎系统发生的错误信息都会记录在这个文件中，如果系统发生莫名的错误，一定要查看这个文件。
+/var/log/maillog 邮件系统产生的日志信息</description>
+    </item>
+    
+  </channel>
+</rss>

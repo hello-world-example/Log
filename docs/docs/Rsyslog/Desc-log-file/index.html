@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desc Log File | Log</title>
+
+
+<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
+
+
+
+
+<link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://hello-world-example.github.io/Log/">Log</a>
+</h2>
+
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2fLog\2f docs\2fRsyslog\2f Desc-log-file\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a></li>
+<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+
+<ul>
+<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/Log/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Desc Log File</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="常见日志文件说明">常见日志文件说明</h1>
+
+<h2 id="var-log-secure">/var/log/secure</h2>
+
+<p>系统安全相关的日志
+- 谁登陆了
+- 什么时间登陆了
+- 通过哪个账号登陆了
+- 从哪台主机登陆了
+- 密码输入错误了几次</p>
+
+<h2 id="var-log-messages">/var/log/messages</h2>
+
+<p><strong>这个文件很重要</strong>，几乎系统发生的错误信息都会记录在这个文件中，如果系统发生莫名的错误，一定要查看这个文件。</p>
+
+<h2 id="var-log-maillog">/var/log/maillog</h2>
+
+<p>邮件系统产生的日志信息</p>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified Sep 21, 2019 by kaibin.yang' target="_blank" rel="noopener">
+      <img src="/Log/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+  <div>
+    <a href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Desc-log-file.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" alt="Edit" /> Edit this page
+    </a>
+  </div>
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#常见日志文件说明">常见日志文件说明</a>
+<ul>
+<li><a href="#var-log-secure">/var/log/secure</a></li>
+<li><a href="#var-log-messages">/var/log/messages</a></li>
+<li><a href="#var-log-maillog">/var/log/maillog</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>
