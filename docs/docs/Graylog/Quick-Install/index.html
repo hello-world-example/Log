@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="快速安装 Docker 方式安装 (2.3.1)  mongo:3.6.18 elasticsearch:5.6.12 graylog/graylog:2.3.1-2  # mongo:3.6.18 $ docker run --name mongo -d mongo:3.6.18 # elasticsearch:5.6.12 $ docker run --name elasticsearch \  -e &#34;http.host=0.0.0.0&#34; \  -e &#34;xpack.security.enabled=false&#34; \  -p 19200:9200 \  -d elasticsearch:5.6.12 # graylog/graylog:2.3.1-2 $ docker run --link mongo --link elasticsearch \  -p 9000:9000 -p 12201:12201 -p 514:514 -p 55555:55555/udp \  -e GRAYLOG_WEB_ENDPOINT_URI=&#34;http://127.0.0.1:9000/api&#34; \  --name graylog -d graylog/graylog:2.3.1-2 验证"><meta property="og:title" content="" />
+<meta property="og:description" content="快速安装 Docker 方式安装 (2.3.1)  mongo:3.6.18 elasticsearch:5.6.12 graylog/graylog:2.3.1-2  # mongo:3.6.18 $ docker run --name mongo -d mongo:3.6.18 # elasticsearch:5.6.12 $ docker run --name elasticsearch \  -e &#34;http.host=0.0.0.0&#34; \  -e &#34;xpack.security.enabled=false&#34; \  -p 19200:9200 \  -d elasticsearch:5.6.12 # graylog/graylog:2.3.1-2 $ docker run --link mongo --link elasticsearch \  -p 9000:9000 -p 12201:12201 -p 514:514 -p 55555:55555/udp \  -e GRAYLOG_WEB_ENDPOINT_URI=&#34;http://127.0.0.1:9000/api&#34; \  --name graylog -d graylog/graylog:2.3.1-2 验证" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Log/docs/Graylog/Quick-Install/" />
+
+<title>Quick Install | Log</title>
+<link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Log/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Log"><span>Log</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+  <a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
+</ul>
+</li>
+<li><strong>Graylog</strong>
+<ul>
+<li>
+  <a href="/Log/docs/Graylog/Quick-Install/"class=active>快速安装</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Log/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Quick Install</strong>
+
+  <label for="toc-control">
+    <img src="/Log/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#快速安装">快速安装</a>
+      <ul>
+        <li><a href="#docker-方式安装-231">Docker 方式安装 (2.3.1)</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="快速安装">快速安装</h1>
+<h2 id="docker-方式安装-231">Docker 方式安装 (2.3.1)</h2>
+<ul>
+<li>mongo:3.6.18</li>
+<li>elasticsearch:5.6.12</li>
+<li>graylog/graylog:2.3.1-2</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># mongo:3.6.18</span>
+$ docker run --name mongo -d mongo:3.6.18
+
+<span style="color:#75715e"># elasticsearch:5.6.12</span>
+$ docker run --name elasticsearch <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#34;http.host=0.0.0.0&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#34;xpack.security.enabled=false&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -p 19200:9200 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -d elasticsearch:5.6.12
+
+<span style="color:#75715e"># graylog/graylog:2.3.1-2</span>
+$ docker run --link mongo --link elasticsearch <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -p 9000:9000 -p 12201:12201 -p 514:514 -p 55555:55555/udp <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e GRAYLOG_WEB_ENDPOINT_URI<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://127.0.0.1:9000/api&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --name graylog -d graylog/graylog:2.3.1-2
+</code></pre></div><p>验证</p>
+<ul>
+<li>访问： http://localhost:9000/</li>
+<li>默认账户： admin / admin</li>
+<li>创建 Input
+<ul>
+<li>进入： http://localhost:9000/system/inputs</li>
+<li>选择 <code>GELF UDP</code> &gt; <code>Launch new input</code></li>
+<li>勾选 <code>Global</code></li>
+<li>Port <code>55555</code></li>
+<li><code>Save</code> 保存</li>
+</ul>
+</li>
+<li>写入日志：<code>echo -n '{ &quot;version&quot;: &quot;1.1&quot;, &quot;host&quot;: &quot;example.org&quot;, &quot;short_message&quot;: &quot;A short message&quot;, &quot;level&quot;: 5, &quot;_some_info&quot;: &quot;foo&quot; }' | nc -w0 -u localhost 55555</code></li>
+</ul>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>
+  <a href="https://docs.graylog.org/en/latest/pages/installation/docker.html">Installing Graylog » Docker</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Graylog/Quick-Install.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#快速安装">快速安装</a>
+      <ul>
+        <li><a href="#docker-方式安装-231">Docker 方式安装 (2.3.1)</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

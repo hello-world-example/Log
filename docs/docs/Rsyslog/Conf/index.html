@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="# rsyslog configuration file # For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html # If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html #### MODULES #### # The imjournal module bellow is now used as a message source instead of imuxsock. $ModLoad imuxsock # provides support for local system logging (e.g. via logger command) $ModLoad imjournal # provides access to the systemd journal #$ModLoad imklog # reads kernel messages (the same are read from journald) #$ModLoad immark # provides --MARK-- message capability # Provides UDP syslog reception #$ModLoad imudp #$UDPServerRun 514 # Provides TCP syslog reception #$ModLoad imtcp #$InputTCPServerRun 514 #### GLOBAL DIRECTIVES #### # Where to place auxiliary files $WorkDirectory /var/lib/rsyslog # Use default timestamp format $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat # File syncing capability is disabled by default."><meta property="og:title" content="" />
+<meta property="og:description" content="# rsyslog configuration file # For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html # If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html #### MODULES #### # The imjournal module bellow is now used as a message source instead of imuxsock. $ModLoad imuxsock # provides support for local system logging (e.g. via logger command) $ModLoad imjournal # provides access to the systemd journal #$ModLoad imklog # reads kernel messages (the same are read from journald) #$ModLoad immark # provides --MARK-- message capability # Provides UDP syslog reception #$ModLoad imudp #$UDPServerRun 514 # Provides TCP syslog reception #$ModLoad imtcp #$InputTCPServerRun 514 #### GLOBAL DIRECTIVES #### # Where to place auxiliary files $WorkDirectory /var/lib/rsyslog # Use default timestamp format $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat # File syncing capability is disabled by default." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Log/docs/Rsyslog/Conf/" />
+<meta property="article:modified_time" content="2019-09-21T19:54:20+08:00" />
 <title>Conf | Log</title>
-
-
-<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
-
-
-
-
 <link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Log/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +25,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Log/">Log</a>
+  <a href="/Log"><span>Log</span>
+  </a>
 </h2>
 
 
@@ -38,31 +40,41 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fLog\2f docs\2fRsyslog\2f Conf\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
+
+
+
+
+  <ul>
+<li>
+  <a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
 <ul>
-<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
-</ul></li>
-<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
-<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
-<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
-</ul></li>
+<li>
+  <a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
 </ul>
+</li>
+<li><strong>Graylog</strong>
+<ul>
+<li>
+  <a href="/Log/docs/Graylog/Quick-Install/">快速安装</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Conf/"class=active>Conf</a></li>
+</ul>
+</li>
+</ul>
+
+
+
 
 
 
@@ -73,28 +85,45 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Log/svg/menu.svg" alt="Menu" />
+    <img src="/Log/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Conf</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Log/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents"></nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># rsyslog configuration file</span>
+      
+  <article class="markdown"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># rsyslog configuration file</span>
 
 <span style="color:#75715e"># For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html</span>
 <span style="color:#75715e"># If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html</span>
@@ -184,40 +213,74 @@ local7.*                                                /var/log/boot.log
 <span style="color:#75715e">#$ActionResumeRetryCount -1    # infinite retries if host is down</span>
 <span style="color:#75715e"># remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional</span>
 <span style="color:#75715e">#*.* @@remote-host:514</span>
-<span style="color:#75715e"># ### end of the forwarding rule ###</span></code></pre></div></article>
-
+<span style="color:#75715e"># ### end of the forwarding rule ###</span>
+</code></pre></div></article>
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified Sep 21, 2019 by kaibin.yang' target="_blank" rel="noopener">
-      <img src="/Log/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified by kaibin.yang | Sep 21, 2019' target="_blank" rel="noopener">
+      <img src="/Log/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Sep 21, 2019</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Conf.md" target="_blank" rel="noopener">
-      <img src="/Log/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Conf.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

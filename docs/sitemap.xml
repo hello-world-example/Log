@@ -1,49 +1,62 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://hello-world-example.github.io/Log/_sidebar/</loc>
-    <lastmod>2019-09-21T19:54:20+08:00</lastmod>
+    <lastmod>2019-09-23T10:02:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Log/docs/Graylog/Quick-Install/</loc>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Rsyslog/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-21T19:54:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Rsyslog/Conf/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-21T19:54:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Rsyslog/Core/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-21T19:54:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Rsyslog/Desc-log-file/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-21T19:54:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Slf4j/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-21T21:19:33+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/Slf4j/Web-Container-Log/</loc>
-    <priority>0</priority>
+    <lastmod>2019-09-23T10:02:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Log/categories/</loc>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/docs/</loc>
+    <lastmod>2019-09-23T10:02:32+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Log/</loc>
     <lastmod>2019-09-21T19:54:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Log/tags/</loc>
   </url>
   
 </urlset>

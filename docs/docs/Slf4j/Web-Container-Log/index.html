@@ -4,15 +4,20 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Web 容器 日志桥接到 Slf4j 背景 Web 容器内的日志由容器自己管理，会输出到自己的日志文件中，应用会有自己的输出方式，当项目报错时，无法知道错误来源是导致还是应用导致，排查路径比较多。
+如果能统一 容器和应用的日志输出，则可以保证在统一一个日志收集工具上进行查看，异常日志看起来会更加明了。比如：
+ Request header is too large 等  概要  常见 Web 容器使用 JDK 内置的 jul 日志组件  java.util.logging.Logger 所有的 Logger 通过  java.util.logging.LogManager 进行管理，包括 rootLogger （logger 名是空字符串） LogManager 在初始化的时候，通过 static 静态代码块，读取 java.util.logging.manager 系统属性 确定 LogManager 的实现类，如果没有指定，就把自己作为默认实现  Tomcat  在 bin/catalina.sh 中 通过 LOGGING_MANAGER 进行设置 实现类是 org.apache.juli.ClassLoaderLogManager   Resin  com.caucho.boot.ResinBoot &gt; com.caucho.boot.WatchdogManager ，通过 Java 读取配置，构造启动参数，最终唤醒 com.caucho.server.resin.Resin 进程 -Djava.util.logging.manager=com.caucho.log.LogManagerImpl 是写死在 ResinBoot 代码流程中的      java."><meta property="og:title" content="" />
+<meta property="og:description" content="Web 容器 日志桥接到 Slf4j 背景 Web 容器内的日志由容器自己管理，会输出到自己的日志文件中，应用会有自己的输出方式，当项目报错时，无法知道错误来源是导致还是应用导致，排查路径比较多。
+如果能统一 容器和应用的日志输出，则可以保证在统一一个日志收集工具上进行查看，异常日志看起来会更加明了。比如：
+ Request header is too large 等  概要  常见 Web 容器使用 JDK 内置的 jul 日志组件  java.util.logging.Logger 所有的 Logger 通过  java.util.logging.LogManager 进行管理，包括 rootLogger （logger 名是空字符串） LogManager 在初始化的时候，通过 static 静态代码块，读取 java.util.logging.manager 系统属性 确定 LogManager 的实现类，如果没有指定，就把自己作为默认实现  Tomcat  在 bin/catalina.sh 中 通过 LOGGING_MANAGER 进行设置 实现类是 org.apache.juli.ClassLoaderLogManager   Resin  com.caucho.boot.ResinBoot &gt; com.caucho.boot.WatchdogManager ，通过 Java 读取配置，构造启动参数，最终唤醒 com.caucho.server.resin.Resin 进程 -Djava.util.logging.manager=com.caucho.log.LogManagerImpl 是写死在 ResinBoot 代码流程中的      java." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Log/docs/Slf4j/Web-Container-Log/" />
+<meta property="article:modified_time" content="2019-09-23T10:02:32+08:00" />
 <title>Web Container Log | Log</title>
-
-
-<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
-
-
-
-
 <link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Log/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +29,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Log/">Log</a>
+  <a href="/Log"><span>Log</span>
+  </a>
 </h2>
 
 
@@ -38,31 +44,41 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fLog\2f docs\2fSlf4j\2fWeb-Container-Log\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
+
+
+
+
+  <ul>
+<li>
+  <a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
 <ul>
-<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
-</ul></li>
-<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
-<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
-<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
-</ul></li>
+<li>
+  <a href="/Log/docs/Slf4j/Web-Container-Log/"class=active>Web 容器日志器桥接 slf4j</a></li>
 </ul>
+</li>
+<li><strong>Graylog</strong>
+<ul>
+<li>
+  <a href="/Log/docs/Graylog/Quick-Install/">快速安装</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul>
+</li>
+</ul>
+
+
+
 
 
 
@@ -73,156 +89,178 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Log/svg/menu.svg" alt="Menu" />
+    <img src="/Log/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Web Container Log</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Log/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#web-容器-日志桥接到-slf4j">Web 容器 日志桥接到 Slf4j</a>
+      <ul>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#概要">概要</a></li>
+        <li><a href="#javautillogginglogmanager">java.util.logging.LogManager</a></li>
+        <li><a href="#orgslf4jjul-to-slf4j">org.slf4j:jul-to-slf4j</a></li>
+        <li><a href="#orgapachejuliclassloaderlogmanager">org.apache.juli.ClassLoaderLogManager</a></li>
+        <li><a href="#comcauchologlogmanagerimpl">com.caucho.log.LogManagerImpl</a></li>
+        <li><a href="#换个角度思考">换个角度思考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown">
-
-<h1 id="web-容器-日志桥接到-slf4j">Web 容器 日志桥接到 Slf4j</h1>
-
+      
+  <article class="markdown"><h1 id="web-容器-日志桥接到-slf4j">Web 容器 日志桥接到 Slf4j</h1>
 <h2 id="背景">背景</h2>
-
 <p>Web 容器内的日志由容器自己管理，会输出到自己的日志文件中，应用会有自己的输出方式，当项目报错时，无法知道错误来源是导致还是应用导致，排查路径比较多。</p>
-
 <p>如果能统一 容器和应用的日志输出，则可以保证在统一一个日志收集工具上进行查看，异常日志看起来会更加明了。比如：</p>
-
 <ul>
 <li><code>Request header is too large</code></li>
 <li>等</li>
 </ul>
-
 <h2 id="概要">概要</h2>
-
 <ul>
-<li>常见 Web 容器使用 JDK 内置的<code>jul</code> 日志组件 <code>java.util.logging.Logger</code></li>
-<li>所有的 <code>Logger</code> 通过 <code>java.util.logging.LogManager</code> 进行管理，包括 <code>rootLogger</code> （logger 名是空字符串）</li>
+<li>常见 Web 容器使用 JDK 内置的<code> jul</code> 日志组件 <code> java.util.logging.Logger</code></li>
+<li>所有的 <code>Logger</code> 通过 <code> java.util.logging.LogManager</code> 进行管理，包括 <code>rootLogger</code> （logger 名是空字符串）</li>
 <li><code>LogManager</code> 在初始化的时候，通过 <code>static</code> 静态代码块，读取 <code>java.util.logging.manager</code> 系统属性 确定 <code>LogManager</code> 的实现类，如果没有指定，就把自己作为默认实现
-
 <ul>
-<li><strong>Tomcat</strong></li>
+<li><strong>Tomcat</strong>
+<ul>
 <li>在 <code>bin/catalina.sh</code> 中 通过 <code>LOGGING_MANAGER</code> 进行设置</li>
 <li>实现类是 <code>org.apache.juli.ClassLoaderLogManager</code></li>
-<li><strong>Resin</strong></li>
+</ul>
+</li>
+<li><strong>Resin</strong>
+<ul>
 <li><code>com.caucho.boot.ResinBoot</code> &gt; <code>com.caucho.boot.WatchdogManager</code> ，通过 Java 读取配置，构造启动参数，最终唤醒 <code>com.caucho.server.resin.Resin</code> 进程</li>
 <li><code>-Djava.util.logging.manager=com.caucho.log.LogManagerImpl</code> 是写死在 ResinBoot 代码流程中的</li>
-</ul></li>
 </ul>
-
-<h2 id="java-util-logging-logmanager">java.util.logging.LogManager</h2>
-
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="javautillogginglogmanager">java.util.logging.LogManager</h2>
 <ul>
 <li>JDK 内置的 <code>LogManager</code> 管理所有的 <code>Logger</code>
-
 <ul>
 <li><code>LogManager.LoggerContext.Hashtable&lt;String,LoggerWeakRef&gt;</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>Logger</code> 通过属性 <code>parent</code> 和 <code>useParentHandlers</code> 维护层级关系和决定是否使用 parent 的 <code>Handler</code> 输出日志</li>
 <li><code>java.util.logging.Handler</code> 类似于 Appender ，是真正输出日志的地方，JDK 内置的 有 <code>java.util.logging.ConsoleHandler</code> 、<code>java.util.logging.FileHandler</code> 等</li>
 <li><code>jul</code>（<code>java.util.logging</code> ）默认读取 <code>jre/lib/logging.properties</code> 文件中的配置</li>
 </ul>
-
-<h2 id="org-slf4j-jul-to-slf4j">org.slf4j:jul-to-slf4j</h2>
-
+<h2 id="orgslf4jjul-to-slf4j">org.slf4j:jul-to-slf4j</h2>
 <ul>
 <li><code>slf4j</code> 提供了 JDK Logging 桥接到 slf4j 的工具，不过需要手动调用，调用方式如下
-
 <ul>
 <li>判断是否安装：<code>org.slf4j.bridge.SLF4JBridgeHandler.isInstalled()</code></li>
 <li>卸载：<code>org.slf4j.bridge.SLF4JBridgeHandler.uninstall()</code></li>
 <li>安装：<code>org.slf4j.bridge.SLF4JBridgeHandler.install()</code></li>
-</ul></li>
+</ul>
+</li>
 <li>原理是在 <code>rootLogger</code>（<code>LogManager.getLogManager().getLogger(&quot;&quot;)</code>）中新增 <code>SLF4JBridgeHandler</code>，重写日志输出实现，输出时调用 <code>slf4j-api</code> 进行输出，之后便可通过 slf4j 适配各种日志框架。</li>
 <li>Spring Boot 项目在启动过程中已经自动把过程处理掉了，所以无需关注</li>
 </ul>
-
-<h2 id="org-apache-juli-classloaderlogmanager">org.apache.juli.ClassLoaderLogManager</h2>
-
+<h2 id="orgapachejuliclassloaderlogmanager">org.apache.juli.ClassLoaderLogManager</h2>
 <p><code>juli</code>（可能是 <strong>j</strong>ava <strong>u</strong>til <strong>l</strong>ogg<strong>i</strong>ng 的缩写）为了进行不同 webapp 之间的隔离， <code>ClassLoaderLogManager extends LogManager</code>，通过 不同应用的 <code>ClassLoader</code> 对 <code>Logger</code> 进行隔离。</p>
-
 <blockquote>
 <ul>
 <li><code>org.apache.juli.ClassLoaderLogManager</code>
-
 <ul>
-<li><code>ClassLoaderLogManager</code> 属性： <code>Map&lt;ClassLoader, ClassLoaderLogInfo&gt; classLoaderLoggers</code></li>
+<li><code>ClassLoaderLogManager</code> 属性： <code>Map&lt;ClassLoader, ClassLoaderLogInfo&gt; classLoaderLoggers</code>
+<ul>
 <li><code>ClassLoaderLogInfo</code> 属性：<code>Map&lt;String, Logger&gt; loggers</code></li>
 <li><code>ClassLoaderLogInfo</code> 属性：<code>Map&lt;String, Handler&gt; handlers</code></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </blockquote>
-
 <p>Tomcat 自身的 ClassLoader 是 <code>URLClassLoader</code>，但是用 webapp 的 ClassLoader 是 <code>ParallelWebappClassLoader</code>，从  <code>ClassLoaderLogManager</code> 中获取 Logger 的时候，因为当前线程的 ClassLoader 不一样，获取到的 RootLogger 其实也不是同一个对象。</p>
-
 <p>但是 <code>ClassLoaderLogManager</code> 对象在当前 JVM 中只会又一个，如果可以把 <code>SLF4JBridgeHandler</code> 添加到 Tomcat 子什么的 rootLogger 中的，则 Tomcat 输出日志的时候，就可以把日志 输出到 slf4j。</p>
-
 <p>以下示例代码供参考：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#a6e22e">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tomcatSlf4jBridgeHandlerInstall</span>() <span style="color:#66d9ef">throws</span> <span style="color:#a6e22e">IllegalAccessException</span>, NoSuchFieldException {
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">LogManager</span> logManager <span style="color:#f92672">=</span> LogManager.<span style="color:#a6e22e">getLogManager</span>();
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tomcatSlf4jBridgeHandlerInstall</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IllegalAccessException<span style="color:#f92672">,</span> NoSuchFieldException <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">final</span> LogManager logManager <span style="color:#f92672">=</span> LogManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getLogManager</span><span style="color:#f92672">();</span>
 
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> currentLogManager <span style="color:#f92672">=</span> LogManager.<span style="color:#a6e22e">getLogManager</span>().<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getName</span>();
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> tomcatLogManager <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;org.apache.juli.ClassLoaderLogManager&#34;</span>;
+    <span style="color:#66d9ef">final</span> String currentLogManager <span style="color:#f92672">=</span> LogManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getLogManager</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">final</span> String tomcatLogManager <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;org.apache.juli.ClassLoaderLogManager&#34;</span><span style="color:#f92672">;</span>
 
     <span style="color:#75715e">// 判断当前 LogManager 是否是 Tomcat 默认的 LogManager
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>Objects.<span style="color:#a6e22e">equals</span>(currentLogManager, tomcatLogManager)) {
-        <span style="color:#66d9ef">return</span>;
-    }
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>currentLogManager<span style="color:#f92672">,</span> tomcatLogManager<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
     <span style="color:#75715e">// 获取 Map&lt;ClassLoader, ClassLoaderLogInfo&gt; classLoaderLoggers
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Field</span> classLoaderLoggersField <span style="color:#f92672">=</span> logManager.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredField</span>(<span style="color:#e6db74">&#34;classLoaderLoggers&#34;</span>);
-    classLoaderLoggersField.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Map</span> classLoaderLoggers <span style="color:#f92672">=</span> (Map) classLoaderLoggersField.<span style="color:#a6e22e">get</span>(logManager);
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> Field classLoaderLoggersField <span style="color:#f92672">=</span> logManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredField</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;classLoaderLoggers&#34;</span><span style="color:#f92672">);</span>
+    classLoaderLoggersField<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">final</span> Map classLoaderLoggers <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">)</span> classLoaderLoggersField<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>logManager<span style="color:#f92672">);</span>
 
     <span style="color:#75715e">// 遍历 Map&lt;ClassLoader, ClassLoaderLogInfo&gt; classLoaderLoggers
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Set</span> entrySet <span style="color:#f92672">=</span> classLoaderLoggers.<span style="color:#a6e22e">entrySet</span>();
-    <span style="color:#66d9ef">for</span> (Object <span style="color:#a6e22e">entry</span> <span style="color:#f92672">:</span> entrySet) {
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> Set entrySet <span style="color:#f92672">=</span> classLoaderLoggers<span style="color:#f92672">.</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Object entry <span style="color:#f92672">:</span> entrySet<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
 
         <span style="color:#75715e">// ClassLoader &lt;-&gt; ClassLoaderLogInfo
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;All&#34;</span>) <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Map</span>.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>ClassLoader, Object<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">classLoaderAndLogInfo</span> <span style="color:#f92672">=</span> (Map.<span style="color:#a6e22e">Entry</span>) entry;
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;All&#34;</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>ClassLoader<span style="color:#f92672">,</span> Object<span style="color:#f92672">&gt;</span> classLoaderAndLogInfo <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span><span style="color:#f92672">)</span> entry<span style="color:#f92672">;</span>
 
         <span style="color:#75715e">// 判断是否是 Tomcat 的 ClassLoader
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>Objects.<span style="color:#a6e22e">equals</span>(classLoaderAndLogInfo.<span style="color:#a6e22e">getKey</span>().<span style="color:#a6e22e">getClass</span>(), URLClassLoader.<span style="color:#a6e22e">class</span>)) {
-            <span style="color:#66d9ef">continue</span>;
-        }
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>classLoaderAndLogInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">(),</span> URLClassLoader<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">continue</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
 
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Object</span> logInfo <span style="color:#f92672">=</span> classLoaderAndLogInfo.<span style="color:#a6e22e">getValue</span>();
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Field</span> loggersField <span style="color:#f92672">=</span> logInfo.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredField</span>(<span style="color:#e6db74">&#34;loggers&#34;</span>);
-        loggersField.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
+        <span style="color:#66d9ef">final</span> Object logInfo <span style="color:#f92672">=</span> classLoaderAndLogInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">final</span> Field loggersField <span style="color:#f92672">=</span> logInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredField</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;loggers&#34;</span><span style="color:#f92672">);</span>
+        loggersField<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
 
         <span style="color:#75715e">// Map&lt;String, Logger&gt; loggers
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Map</span> o <span style="color:#f92672">=</span> (Map) loggersField.<span style="color:#a6e22e">get</span>(logInfo);
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Logger</span> rootLogger <span style="color:#f92672">=</span> (Logger) o.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;&#34;</span>);
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">final</span> Map o <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">)</span> loggersField<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>logInfo<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> Logger rootLogger <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Logger<span style="color:#f92672">)</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
 
         <span style="color:#75715e">// 使用 org.slf4j.bridge.SLF4JBridgeHandler
-</span><span style="color:#75715e"></span>        java.<span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">logging</span>.<span style="color:#a6e22e">Handler</span>[] <span style="color:#a6e22e">handlers</span> <span style="color:#f92672">=</span> rootLogger.<span style="color:#a6e22e">getHandlers</span>();
-        <span style="color:#66d9ef">if</span> (Objects.<span style="color:#a6e22e">isNull</span>(handlers)) {
-            <span style="color:#66d9ef">return</span>;
-        }
+</span><span style="color:#75715e"></span>        java<span style="color:#f92672">.</span><span style="color:#a6e22e">util</span><span style="color:#f92672">.</span><span style="color:#a6e22e">logging</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Handler</span><span style="color:#f92672">[]</span> handlers <span style="color:#f92672">=</span> rootLogger<span style="color:#f92672">.</span><span style="color:#a6e22e">getHandlers</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">isNull</span><span style="color:#f92672">(</span>handlers<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
         <span style="color:#75715e">// 判断是否已经安装过
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (Handler <span style="color:#a6e22e">handler</span> <span style="color:#f92672">:</span> handlers) {
-            <span style="color:#66d9ef">if</span> (Objects.<span style="color:#a6e22e">equals</span>(handler.<span style="color:#a6e22e">getClass</span>(), SLF4JBridgeHandler.<span style="color:#a6e22e">class</span>)) {
-                <span style="color:#66d9ef">return</span>;
-            }
-        }
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Handler handler <span style="color:#f92672">:</span> handlers<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>handler<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">(),</span> SLF4JBridgeHandler<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
         <span style="color:#75715e">// 安装
-</span><span style="color:#75715e"></span>        rootLogger.<span style="color:#a6e22e">addHandler</span>(<span style="color:#66d9ef">new</span> SLF4JBridgeHandler());
+</span><span style="color:#75715e"></span>        rootLogger<span style="color:#f92672">.</span><span style="color:#a6e22e">addHandler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SLF4JBridgeHandler<span style="color:#f92672">());</span>
 
         <span style="color:#75715e">// org.apache.juli.logging.Log.UserDataHelper 非法信息通过 INFO 级别打印的几种方式（默认是 INFO_THEN_DEBUG 级别）
 </span><span style="color:#75715e"></span>        <span style="color:#75715e">// System.setProperty(&#34;org.apache.juli.logging.UserDataHelper.CONFIG&#34;, &#34;INFO_ALL&#34;);
@@ -232,140 +270,172 @@ https://github.com/alex-shpak/hugo-book
         <span style="color:#75715e">/*
 </span><span style="color:#75715e">         * 完全接管指定的 Logger
 </span><span style="color:#75715e">         */</span>
-        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">loggerNames</span> <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;org.apache.coyote.http11.Http11Processor&#34;</span>);
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> loggerNamesConfig <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">getProperty</span>(<span style="color:#e6db74">&#34;tomcat.logger.handler.override.names&#34;</span>);
-        <span style="color:#66d9ef">if</span> (Objects.<span style="color:#a6e22e">nonNull</span>(loggerNamesConfig)) {
-            loggerNames <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(loggerNamesConfig.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;,&#34;</span>));
-        }
+        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> loggerNames <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;org.apache.coyote.http11.Http11Processor&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> String loggerNamesConfig <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tomcat.logger.handler.override.names&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">nonNull</span><span style="color:#f92672">(</span>loggerNamesConfig<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            loggerNames <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>loggerNamesConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
 
-        <span style="color:#66d9ef">for</span> (String <span style="color:#a6e22e">loggerName</span> <span style="color:#f92672">:</span> loggerNames) {
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String loggerName <span style="color:#f92672">:</span> loggerNames<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
             <span style="color:#75715e">// 设置原始 Logger 日志级别，具体是否输出由 Slf4j 控制
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Logger</span> logger <span style="color:#f92672">=</span> (Logger) o.<span style="color:#a6e22e">get</span>(loggerName);
-            <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> logger) {
-                <span style="color:#66d9ef">continue</span>;
-            }
-            logger.<span style="color:#a6e22e">setLevel</span>(Level.<span style="color:#a6e22e">ALL</span>);
-            <span style="color:#66d9ef">for</span> (Handler <span style="color:#a6e22e">handler</span> <span style="color:#f92672">:</span> handlers) {
-                logger.<span style="color:#a6e22e">removeHandler</span>(handler);
-            }
-            logger.<span style="color:#a6e22e">addHandler</span>(<span style="color:#66d9ef">new</span> SLF4JBridgeHandler());
-            logger.<span style="color:#a6e22e">setUseParentHandlers</span>(<span style="color:#66d9ef">false</span>);
-        }
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">final</span> Logger logger <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Logger<span style="color:#f92672">)</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>loggerName<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> logger<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">continue</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            logger<span style="color:#f92672">.</span><span style="color:#a6e22e">setLevel</span><span style="color:#f92672">(</span>Level<span style="color:#f92672">.</span><span style="color:#a6e22e">ALL</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Handler handler <span style="color:#f92672">:</span> handlers<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                logger<span style="color:#f92672">.</span><span style="color:#a6e22e">removeHandler</span><span style="color:#f92672">(</span>handler<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            logger<span style="color:#f92672">.</span><span style="color:#a6e22e">addHandler</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SLF4JBridgeHandler<span style="color:#f92672">());</span>
+            logger<span style="color:#f92672">.</span><span style="color:#a6e22e">setUseParentHandlers</span><span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
 
-    }
-}</code></pre></div>
-<h2 id="com-caucho-log-logmanagerimpl">com.caucho.log.LogManagerImpl</h2>
-
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="comcauchologlogmanagerimpl">com.caucho.log.LogManagerImpl</h2>
 <p>Resin 项目隔离相对 Tomact 要更复杂一些，Logger 的获取基本沿用 JDK 的方式，没有使用 ClassLoader 进行区分，但是 Handler 的寻址基本上重写了 JDK 的默认实现，这个可能跟整个 Resin 的隔离机制有关，大部分的变量都是通过 <code>EnvironmentLocal</code> 重新进行封装的的， <code>EnvironmentLocal</code> 在初始化的时候会通过全局自增 ID 分配一个唯一的 <code>varName</code> 表示一个唯一的变量，变量会放在 <code>EnvironmentClassLoader</code> 的属性中，通过重写变量的获取方式来达到隔离的目的。</p>
-
 <blockquote>
 <p>Resin 的日志级别设计 感觉 比 Tomcat 也更合理一些（某些场景下），比如 <code>Request header is too large</code> 错误，在 Tomcat 下，第一次是 INFO 界别，之后再 24 小时的抑制时间内，会变成 DEBUG 级别，可能不会输出任何错误日志；而 Resin 始终都是 WARN 级别，来告知有异常的请求</p>
 </blockquote>
-
 <p>以下示例代码供参考：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#a6e22e">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">resinSlf4jBridgeHandlerInstall</span>() <span style="color:#66d9ef">throws</span> <span style="color:#a6e22e">ReflectiveOperationException</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">resinSlf4jBridgeHandlerInstall</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ReflectiveOperationException <span style="color:#f92672">{</span>
     <span style="color:#75715e">// com.caucho.log.EnvironmentLogger
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Logger</span> rootLogger <span style="color:#f92672">=</span> LogManager.<span style="color:#a6e22e">getLogManager</span>().<span style="color:#a6e22e">getLogger</span>(<span style="color:#e6db74">&#34;&#34;</span>);
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> resinLoggerName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.log.EnvironmentLogger&#34;</span>;
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>resinLoggerName.<span style="color:#a6e22e">equals</span>(rootLogger.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getName</span>())) {
-        <span style="color:#66d9ef">return</span>;
-    }
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> Logger rootLogger <span style="color:#f92672">=</span> LogManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getLogManager</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getLogger</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">final</span> String resinLoggerName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.log.EnvironmentLogger&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>resinLoggerName<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>rootLogger<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Field</span> localHandlersFiled <span style="color:#f92672">=</span> rootLogger.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredField</span>(<span style="color:#e6db74">&#34;_localHandlers&#34;</span>);
-    localHandlersFiled.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
+    <span style="color:#66d9ef">final</span> Field localHandlersFiled <span style="color:#f92672">=</span> rootLogger<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredField</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;_localHandlers&#34;</span><span style="color:#f92672">);</span>
+    localHandlersFiled<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
     <span style="color:#75715e">// EnvironmentLocal&lt;Handler[]&gt; _localHandlers
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Object</span> localHandlersEnv <span style="color:#f92672">=</span> localHandlersFiled.<span style="color:#a6e22e">get</span>(rootLogger);
-    <span style="color:#66d9ef">if</span> (Objects.<span style="color:#a6e22e">isNull</span>(localHandlersEnv)) {
-        <span style="color:#66d9ef">return</span>;
-    }
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> Object localHandlersEnv <span style="color:#f92672">=</span> localHandlersFiled<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>rootLogger<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">isNull</span><span style="color:#f92672">(</span>localHandlersEnv<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
     <span style="color:#75715e">/*
 </span><span style="color:#75715e">     * 方式1：获取 localHandlersEnv 中 _varName，设置到 Handler 到 EnvironmentClassLoader[resin-system:] 的 _attributes 中
 </span><span style="color:#75715e">     * 原理详见：EnvironmentLogger.getHandlers() 和 EnvironmentLocal.get() 方法
 </span><span style="color:#75715e">     */</span>
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Field</span> varNameField <span style="color:#f92672">=</span> localHandlersEnv.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredField</span>(<span style="color:#e6db74">&#34;_varName&#34;</span>);
-    varNameField.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> handlerVarName <span style="color:#f92672">=</span> (String) varNameField.<span style="color:#a6e22e">get</span>(localHandlersEnv);
+    <span style="color:#66d9ef">final</span> Field varNameField <span style="color:#f92672">=</span> localHandlersEnv<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredField</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;_varName&#34;</span><span style="color:#f92672">);</span>
+    varNameField<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">final</span> String handlerVarName <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>String<span style="color:#f92672">)</span> varNameField<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>localHandlersEnv<span style="color:#f92672">);</span>
 
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> environmentClName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.loader.EnvironmentClassLoader&#34;</span>;
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">String</span> rootDynamicCltName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.loader.RootDynamicClassLoader&#34;</span>;
-    ClassLoader <span style="color:#a6e22e">currentCl</span> <span style="color:#f92672">=</span> Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">getContextClassLoader</span>();
-    ClassLoader <span style="color:#a6e22e">parentCl</span> <span style="color:#f92672">=</span> currentCl.<span style="color:#a6e22e">getParent</span>();
-    <span style="color:#66d9ef">for</span> (; Objects.<span style="color:#a6e22e">nonNull</span>(parentCl); currentCl <span style="color:#f92672">=</span> parentCl, parentCl <span style="color:#f92672">=</span> currentCl.<span style="color:#a6e22e">getParent</span>()) {
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">boolean</span> currentIsEnv <span style="color:#f92672">=</span> Objects.<span style="color:#a6e22e">equals</span>(currentCl.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getName</span>(), environmentClName);
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">boolean</span> parentIsRootDynamic <span style="color:#f92672">=</span> Objects.<span style="color:#a6e22e">equals</span>(parentCl.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getName</span>(), rootDynamicCltName);
-        <span style="color:#66d9ef">if</span> (currentIsEnv <span style="color:#f92672">&amp;&amp;</span> parentIsRootDynamic) {
-            <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Method</span> setAttributeMethod <span style="color:#f92672">=</span> currentCl.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredMethod</span>(<span style="color:#e6db74">&#34;setAttribute&#34;</span>, String.<span style="color:#a6e22e">class</span>, Object.<span style="color:#a6e22e">class</span>);
-            setAttributeMethod.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
-            setAttributeMethod.<span style="color:#a6e22e">invoke</span>(currentCl, handlerVarName, Collections.<span style="color:#a6e22e">singleton</span>(<span style="color:#66d9ef">new</span> SLF4JBridgeHandler()).<span style="color:#a6e22e">toArray</span>(<span style="color:#66d9ef">new</span> Handler[0]));
-            <span style="color:#66d9ef">return</span>;
-        }
-    }
+    <span style="color:#66d9ef">final</span> String environmentClName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.loader.EnvironmentClassLoader&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">final</span> String rootDynamicCltName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.caucho.loader.RootDynamicClassLoader&#34;</span><span style="color:#f92672">;</span>
+    ClassLoader currentCl <span style="color:#f92672">=</span> Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">currentThread</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getContextClassLoader</span><span style="color:#f92672">();</span>
+    ClassLoader parentCl <span style="color:#f92672">=</span> currentCl<span style="color:#f92672">.</span><span style="color:#a6e22e">getParent</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(;</span> Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">nonNull</span><span style="color:#f92672">(</span>parentCl<span style="color:#f92672">);</span> currentCl <span style="color:#f92672">=</span> parentCl<span style="color:#f92672">,</span> parentCl <span style="color:#f92672">=</span> currentCl<span style="color:#f92672">.</span><span style="color:#a6e22e">getParent</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">boolean</span> currentIsEnv <span style="color:#f92672">=</span> Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>currentCl<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> environmentClName<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">boolean</span> parentIsRootDynamic <span style="color:#f92672">=</span> Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>parentCl<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> rootDynamicCltName<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>currentIsEnv <span style="color:#f92672">&amp;&amp;</span> parentIsRootDynamic<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">final</span> Method setAttributeMethod <span style="color:#f92672">=</span> currentCl<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;setAttribute&#34;</span><span style="color:#f92672">,</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> Object<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+            setAttributeMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+            setAttributeMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>currentCl<span style="color:#f92672">,</span> handlerVarName<span style="color:#f92672">,</span> Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">singleton</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SLF4JBridgeHandler<span style="color:#f92672">()).</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Handler<span style="color:#f92672">[</span>0<span style="color:#f92672">]));</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
 
     <span style="color:#75715e">/*
 </span><span style="color:#75715e">     * 方式2： 修改 rootLogger Handler 的  _globalValue 值
 </span><span style="color:#75715e">     */</span>
     <span style="color:#75715e">// E _globalValue
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Field</span> globalValueField <span style="color:#f92672">=</span> localHandlersEnv.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getDeclaredField</span>(<span style="color:#e6db74">&#34;_globalValue&#34;</span>);
-    globalValueField.<span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
-    <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">Handler</span>[] globalHandlers <span style="color:#f92672">=</span> (Handler[]) globalValueField.<span style="color:#a6e22e">get</span>(localHandlersEnv);
-    <span style="color:#66d9ef">if</span> (Objects.<span style="color:#a6e22e">nonNull</span>(globalHandlers)) {
-        <span style="color:#66d9ef">final</span> <span style="color:#a6e22e">ArrayList</span><span style="color:#f92672">&lt;</span>Handler<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">globalHandlerList</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>(Arrays.<span style="color:#a6e22e">asList</span>(globalHandlers));
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">final</span> Field globalValueField <span style="color:#f92672">=</span> localHandlersEnv<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDeclaredField</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;_globalValue&#34;</span><span style="color:#f92672">);</span>
+    globalValueField<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">final</span> Handler<span style="color:#f92672">[]</span> globalHandlers <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Handler<span style="color:#f92672">[])</span> globalValueField<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>localHandlersEnv<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">nonNull</span><span style="color:#f92672">(</span>globalHandlers<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">final</span> ArrayList<span style="color:#f92672">&lt;</span>Handler<span style="color:#f92672">&gt;</span> globalHandlerList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>globalHandlers<span style="color:#f92672">));</span>
         <span style="color:#75715e">// 新增 SLF4JBridgeHandler
-</span><span style="color:#75715e"></span>        globalHandlerList.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> SLF4JBridgeHandler());
+</span><span style="color:#75715e"></span>        globalHandlerList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SLF4JBridgeHandler<span style="color:#f92672">());</span>
         <span style="color:#75715e">// 放回老位置
-</span><span style="color:#75715e"></span>        globalValueField.<span style="color:#a6e22e">set</span>(localHandlersEnv, globalHandlerList.<span style="color:#a6e22e">toArray</span>(<span style="color:#66d9ef">new</span> Handler[0]));
-    }
-}</code></pre></div>
-<h2 id="换个角度思考">换个角度思考</h2>
-
+</span><span style="color:#75715e"></span>        globalValueField<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>localHandlersEnv<span style="color:#f92672">,</span> globalHandlerList<span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Handler<span style="color:#f92672">[</span>0<span style="color:#f92672">]));</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="换个角度思考">换个角度思考</h2>
 <p>从上面分析可以看出，不管是修改 Tomcat 还是 Resin 的默认日志行为，侵入性都比较大（可能是我没找到正确的方式），需要用到 大量的反射，而且还突破了 容器的 隔离限制，风险其实蛮大的，可能会造成日志大量的输出或者不输出。</p>
-
 <p>我们再回顾最初的问题，对于非法请求， 其实 Web 容器会返回 <strong>错误页面</strong> 和 <strong>状态码</strong> 给调用方，调用方报错时，应该打印出原因，而不是吃掉日志，或者打印一些不便于排查的信息，或者依赖服务方的日志，实际上是不合理的。</p>
 </article>
-
+ 
       
-<div class="book-footer justify-end">
-  
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Slf4j/Web-Container-Log.md" target="_blank" rel="noopener">
-      <img src="/Log/svg/edit.svg" alt="Edit" /> Edit this page
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/commit/3d2e30ade8c20de4903d1d5aed6f3c611938b541" title='Last modified by kaibin.yang | Sep 23, 2019' target="_blank" rel="noopener">
+      <img src="/Log/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Sep 23, 2019</span>
     </a>
   </div>
-  
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Slf4j/Web-Container-Log.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#web-容器-日志桥接到-slf4j">Web 容器 日志桥接到 Slf4j</a>
-<ul>
-<li><a href="#背景">背景</a></li>
-<li><a href="#概要">概要</a></li>
-<li><a href="#java-util-logging-logmanager">java.util.logging.LogManager</a></li>
-<li><a href="#org-slf4j-jul-to-slf4j">org.slf4j:jul-to-slf4j</a></li>
-<li><a href="#org-apache-juli-classloaderlogmanager">org.apache.juli.ClassLoaderLogManager</a></li>
-<li><a href="#com-caucho-log-logmanagerimpl">com.caucho.log.LogManagerImpl</a></li>
-<li><a href="#换个角度思考">换个角度思考</a></li>
-</ul></li>
-</ul>
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#web-容器-日志桥接到-slf4j">Web 容器 日志桥接到 Slf4j</a>
+      <ul>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#概要">概要</a></li>
+        <li><a href="#javautillogginglogmanager">java.util.logging.LogManager</a></li>
+        <li><a href="#orgslf4jjul-to-slf4j">org.slf4j:jul-to-slf4j</a></li>
+        <li><a href="#orgapachejuliclassloaderlogmanager">org.apache.juli.ClassLoaderLogManager</a></li>
+        <li><a href="#comcauchologlogmanagerimpl">com.caucho.log.LogManagerImpl</a></li>
+        <li><a href="#换个角度思考">换个角度思考</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

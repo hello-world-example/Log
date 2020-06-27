@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=""><meta property="og:title" content="Docs" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hello-world-example.github.io/Log/docs/" />
+
 <title>Docs | Log</title>
-
-
-<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
-
-
-
-
 <link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Log/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <link rel="alternate" type="application/rss+xml" href="https://hello-world-example.github.io/Log/docs/index.xml" title="Log" />
@@ -25,13 +26,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Log/">Log</a>
+  <a href="/Log"><span>Log</span>
+  </a>
 </h2>
 
 
@@ -39,31 +41,41 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fLog\2f docs\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
+
+
+
+
+  <ul>
+<li>
+  <a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
 <ul>
-<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
-</ul></li>
-<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
-<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
-<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
-</ul></li>
+<li>
+  <a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
 </ul>
+</li>
+<li><strong>Graylog</strong>
+<ul>
+<li>
+  <a href="/Log/docs/Graylog/Quick-Install/">快速安装</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul>
+</li>
+</ul>
+
+
+
 
 
 
@@ -74,52 +86,92 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Log/svg/menu.svg" alt="Menu" />
+    <img src="/Log/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Docs</strong>
-</header>
 
-      
-<article class="markdown"></article>
-
-      
-<div class="book-footer justify-end">
-  
-  
-  <div>
-    
-  </div>
-  
+  <label for="toc-control">
+    <img src="/Log/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
 </div>
 
 
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
       
+  
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
+    <aside class="book-toc">
+      
   
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

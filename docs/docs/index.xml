@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docs on Log</title>
@@ -8,6 +8,15 @@
     
 	<atom:link href="https://hello-world-example.github.io/Log/docs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Log/docs/Graylog/Quick-Install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Log/docs/Graylog/Quick-Install/</guid>
+      <description>快速安装 Docker 方式安装 (2.3.1)  mongo:3.6.18 elasticsearch:5.6.12 graylog/graylog:2.3.1-2  # mongo:3.6.18 $ docker run --name mongo -d mongo:3.6.18 # elasticsearch:5.6.12 $ docker run --name elasticsearch \  -e &amp;#34;http.host=0.0.0.0&amp;#34; \  -e &amp;#34;xpack.security.enabled=false&amp;#34; \  -p 19200:9200 \  -d elasticsearch:5.6.12 # graylog/graylog:2.3.1-2 $ docker run --link mongo --link elasticsearch \  -p 9000:9000 -p 12201:12201 -p 514:514 -p 55555:55555/udp \  -e GRAYLOG_WEB_ENDPOINT_URI=&amp;#34;http://127.0.0.1:9000/api&amp;#34; \  --name graylog -d graylog/graylog:2.3.1-2 验证</description>
+    </item>
     
   </channel>
 </rss>

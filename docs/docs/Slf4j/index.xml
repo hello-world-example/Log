@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Log</title>
@@ -17,7 +17,7 @@
       <guid>https://hello-world-example.github.io/Log/docs/Slf4j/Web-Container-Log/</guid>
       <description>Web 容器 日志桥接到 Slf4j 背景 Web 容器内的日志由容器自己管理，会输出到自己的日志文件中，应用会有自己的输出方式，当项目报错时，无法知道错误来源是导致还是应用导致，排查路径比较多。
 如果能统一 容器和应用的日志输出，则可以保证在统一一个日志收集工具上进行查看，异常日志看起来会更加明了。比如：
- Request header is too large 等  概要  常见 Web 容器使用 JDK 内置的jul 日志组件 java.util.logging.Logger 所有的 Logger 通过 java.util.logging.LogManager 进行管理，包括 rootLogger （logger 名是空字符串） LogManager 在初始化的时候，通过 static 静态代码块，读取 java.util.logging.manager 系统属性 确定 LogManager 的实现类，如果没有指定，就把自己作为默认实现  Tomcat 在 bin/catalina.sh 中 通过 LOGGING_MANAGER 进行设置 实现类是 org.apache.juli.ClassLoaderLogManager Resin com.caucho.boot.ResinBoot &amp;gt; com.caucho.boot.WatchdogManager ，通过 Java 读取配置，构造启动参数，最终唤醒 com.caucho.server.resin.Resin 进程 -Djava.util.logging.manager=com.caucho.log.LogManagerImpl 是写死在 ResinBoot 代码流程中的   java.util.logging.LogManager  JDK 内置的 LogManager 管理所有的 Logger  LogManager.</description>
+ Request header is too large 等  概要  常见 Web 容器使用 JDK 内置的 jul 日志组件  java.util.logging.Logger 所有的 Logger 通过  java.util.logging.LogManager 进行管理，包括 rootLogger （logger 名是空字符串） LogManager 在初始化的时候，通过 static 静态代码块，读取 java.util.logging.manager 系统属性 确定 LogManager 的实现类，如果没有指定，就把自己作为默认实现  Tomcat  在 bin/catalina.sh 中 通过 LOGGING_MANAGER 进行设置 实现类是 org.apache.juli.ClassLoaderLogManager   Resin  com.caucho.boot.ResinBoot &amp;gt; com.caucho.boot.WatchdogManager ，通过 Java 读取配置，构造启动参数，最终唤醒 com.caucho.server.resin.Resin 进程 -Djava.util.logging.manager=com.caucho.log.LogManagerImpl 是写死在 ResinBoot 代码流程中的      java.</description>
     </item>
     
   </channel>

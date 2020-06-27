@@ -4,15 +4,20 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="rsyslog 核心概念 rsyslog 日志是使用 rsyslogd 守护进程进行管理的，该进程是之前版本的系统中 syslogd 的升级版，对原有的日志系统进行了功能的扩展，提供了诸如过滤器、日志加密保护、各种配置选项、输入输出模块，支持通过 TCP 或者 UDP 协议进行传输等。
+rsyslog 的配置文件为 /etc/rsyslog.conf , 大多数日志文件都位于 /var/log/ 目录中。
+格式 FACILITY.PRIORITY	action  FACILITY	设施、服务名称 PRIORITY	优先级、级别 FACILITY.PRIORITY = 基于优先级的过滤器  服务名称（FACILITY）    序号 类别 说明     0 kern(kernel) 内核信息   1 user 用户相关   2 mail 邮件收发信息   3 daemon 守护进程、系统服务产生的信息   4 auth 认证、授权，例如 login, ssh, su 等需要账户密码的东东   5 syslog syslog 自己的日志   6 lpr 打印机相关   7 news 新闻先关   8 uucp 全名为 Unix to Unix Copy Protocol，早期用与 unix 系统间信息交换   9 cron 任务相关   10 authpriv 与 auth 类似，但记录较多帐号私人的信息，包括pam模块的运作等！   11 ftp ftp 服务相关   16~23 local0 ~ local7 预留给用户自己定义使用的    * 所有的 FACILITY    级别    数值等级 等级名称 说明      none 不需要记录日志    * 所有日志级别   7 debug 调试日志        6 info 基本说明信息   5 notice 相对比info 稍微重要的信息   4 warning(warn) 可能有问题，但是还不至于影响到某个 daemon 的运作；info/notice/warn 这三个级别都是在告知一些还不至于造成系统运行的问题        3 err(error) 错误信息，告知该错误会在成服务无法启动   2 crit 比error更严重的错误信息   1 alert 已经很验证的问题了，比crit更严重        0 emerg 系统几乎要挂了，常用于硬件问题    特殊符号  ."><meta property="og:title" content="" />
+<meta property="og:description" content="rsyslog 核心概念 rsyslog 日志是使用 rsyslogd 守护进程进行管理的，该进程是之前版本的系统中 syslogd 的升级版，对原有的日志系统进行了功能的扩展，提供了诸如过滤器、日志加密保护、各种配置选项、输入输出模块，支持通过 TCP 或者 UDP 协议进行传输等。
+rsyslog 的配置文件为 /etc/rsyslog.conf , 大多数日志文件都位于 /var/log/ 目录中。
+格式 FACILITY.PRIORITY	action  FACILITY	设施、服务名称 PRIORITY	优先级、级别 FACILITY.PRIORITY = 基于优先级的过滤器  服务名称（FACILITY）    序号 类别 说明     0 kern(kernel) 内核信息   1 user 用户相关   2 mail 邮件收发信息   3 daemon 守护进程、系统服务产生的信息   4 auth 认证、授权，例如 login, ssh, su 等需要账户密码的东东   5 syslog syslog 自己的日志   6 lpr 打印机相关   7 news 新闻先关   8 uucp 全名为 Unix to Unix Copy Protocol，早期用与 unix 系统间信息交换   9 cron 任务相关   10 authpriv 与 auth 类似，但记录较多帐号私人的信息，包括pam模块的运作等！   11 ftp ftp 服务相关   16~23 local0 ~ local7 预留给用户自己定义使用的    * 所有的 FACILITY    级别    数值等级 等级名称 说明      none 不需要记录日志    * 所有日志级别   7 debug 调试日志        6 info 基本说明信息   5 notice 相对比info 稍微重要的信息   4 warning(warn) 可能有问题，但是还不至于影响到某个 daemon 的运作；info/notice/warn 这三个级别都是在告知一些还不至于造成系统运行的问题        3 err(error) 错误信息，告知该错误会在成服务无法启动   2 crit 比error更严重的错误信息   1 alert 已经很验证的问题了，比crit更严重        0 emerg 系统几乎要挂了，常用于硬件问题    特殊符号  ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Log/docs/Rsyslog/Core/" />
+<meta property="article:modified_time" content="2019-09-21T19:54:20+08:00" />
 <title>Core | Log</title>
-
-
-<link rel="stylesheet" href="/Log/book.min.79de1f7861b0c98f453c0a93bebf3608a280809e417787746c373699639900d7.css">
-
-
-
-
 <link rel="icon" href="/Log/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Log/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +29,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Log/">Log</a>
+  <a href="/Log"><span>Log</span>
+  </a>
 </h2>
 
 
@@ -38,31 +44,41 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2fLog\2f docs\2fRsyslog\2f Core\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
+
+
+
+
+  <ul>
+<li>
+  <a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
 <ul>
-<li><a href="/Log/docs/Slf4j/"><strong>slf4j</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
-</ul></li>
-<li><a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
-
-<ul>
-<li><a href="/Log/docs/Rsyslog/Core/">核心概念</a></li>
-<li><a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
-<li><a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
-</ul></li>
+<li>
+  <a href="/Log/docs/Slf4j/Web-Container-Log/">Web 容器日志器桥接 slf4j</a></li>
 </ul>
+</li>
+<li><strong>Graylog</strong>
+<ul>
+<li>
+  <a href="/Log/docs/Graylog/Quick-Install/">快速安装</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Log/docs/Rsyslog/"><strong>rsyslog</strong>..</a>
+<ul>
+<li>
+  <a href="/Log/docs/Rsyslog/Core/"class=active>核心概念</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Desc-log-file/">常见日志文件</a></li>
+<li>
+  <a href="/Log/docs/Rsyslog/Conf/">Conf</a></li>
+</ul>
+</li>
+</ul>
+
+
+
 
 
 
@@ -73,48 +89,69 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Log/svg/menu.svg" alt="Menu" />
+    <img src="/Log/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Core</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Log/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rsyslog-核心概念">rsyslog 核心概念</a>
+      <ul>
+        <li><a href="#格式">格式</a></li>
+        <li><a href="#服务名称facility">服务名称（FACILITY）</a></li>
+        <li><a href="#级别">级别</a></li>
+        <li><a href="#特殊符号">特殊符号</a></li>
+        <li><a href="#action-日志记录的位置">action 日志记录的位置</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown">
-
-<h1 id="rsyslog-核心概念">rsyslog 核心概念</h1>
-
+      
+  <article class="markdown"><h1 id="rsyslog-核心概念">rsyslog 核心概念</h1>
 <p><strong>rsyslog</strong> 日志是使用 <strong>rsyslogd</strong> 守护进程进行管理的，该进程是之前版本的系统中 <strong>syslogd</strong> 的升级版，对原有的日志系统进行了功能的扩展，提供了诸如<strong>过滤器</strong>、<strong>日志加密保护</strong>、<strong>各种配置选项</strong>、<strong>输入输出模块</strong>，支持通过 <strong>TCP</strong> 或者 <strong>UDP</strong> 协议进行传输等。</p>
-
 <p><strong>rsyslog</strong> 的配置文件为 <strong>/etc/rsyslog.conf</strong> , 大多数日志文件都位于 <strong>/var/log/</strong> 目录中。</p>
-
 <h2 id="格式">格式</h2>
-
 <pre><code>FACILITY.PRIORITY	action
-</code></pre>
-
-<ul>
-<li>FACILITY  设施、服务名称</li>
-<li>PRIORITY  优先级、级别</li>
+</code></pre><ul>
+<li>FACILITY	设施、服务名称</li>
+<li>PRIORITY	优先级、级别</li>
 <li>FACILITY.PRIORITY = 基于优先级的过滤器</li>
 </ul>
-
-<h2 id="服务名称-facility">服务名称（FACILITY）</h2>
-
+<h2 id="服务名称facility">服务名称（FACILITY）</h2>
 <table>
 <thead>
 <tr>
@@ -123,86 +160,72 @@ https://github.com/alex-shpak/hugo-book
 <th>说明</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>0</td>
 <td><code>kern</code>(<code>kernel</code>)</td>
 <td>内核信息</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td><code>user</code></td>
 <td>用户相关</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td><code>mail</code></td>
 <td>邮件收发信息</td>
 </tr>
-
 <tr>
 <td>3</td>
 <td><code>daemon</code></td>
 <td>守护进程、系统服务产生的信息</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td><code>auth</code></td>
 <td>认证、授权，例如 login, ssh, su 等需要账户密码的东东</td>
 </tr>
-
 <tr>
 <td>5</td>
 <td><code>syslog</code></td>
 <td>syslog 自己的日志</td>
 </tr>
-
 <tr>
 <td>6</td>
 <td><code>lpr</code></td>
 <td>打印机相关</td>
 </tr>
-
 <tr>
 <td>7</td>
 <td><code>news</code></td>
 <td>新闻先关</td>
 </tr>
-
 <tr>
 <td>8</td>
 <td><code>uucp</code></td>
 <td>全名为 Unix to Unix Copy Protocol，早期用与 unix 系统间信息交换</td>
 </tr>
-
 <tr>
 <td>9</td>
 <td><code>cron</code></td>
 <td>任务相关</td>
 </tr>
-
 <tr>
 <td>10</td>
 <td><code>authpriv</code></td>
 <td>与 auth 类似，但记录较多帐号私人的信息，包括pam模块的运作等！</td>
 </tr>
-
 <tr>
 <td>11</td>
 <td><code>ftp</code></td>
 <td>ftp 服务相关</td>
 </tr>
-
 <tr>
 <td>16~23</td>
 <td><code>local0 ~ local7</code></td>
 <td>预留给用户自己定义使用的</td>
 </tr>
-
 <tr>
 <td></td>
 <td><code>*</code></td>
@@ -210,9 +233,7 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-
 <h2 id="级别">级别</h2>
-
 <table>
 <thead>
 <tr>
@@ -221,80 +242,67 @@ https://github.com/alex-shpak/hugo-book
 <th>说明</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
 <td>none</td>
 <td>不需要记录日志</td>
 </tr>
-
 <tr>
 <td></td>
 <td>*</td>
 <td>所有日志级别</td>
 </tr>
-
 <tr>
 <td>7</td>
 <td>debug</td>
 <td>调试日志</td>
 </tr>
-
 <tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-
 <tr>
 <td>6</td>
 <td>info</td>
 <td>基本说明信息</td>
 </tr>
-
 <tr>
 <td>5</td>
 <td>notice</td>
 <td>相对比info 稍微重要的信息</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>warning(warn)</td>
 <td>可能有问题，但是还不至于影响到某个 daemon 的运作；info/notice/warn 这三个级别都是在告知一些还不至于造成系统运行的问题</td>
 </tr>
-
 <tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-
 <tr>
 <td>3</td>
 <td>err(error)</td>
 <td>错误信息，告知该错误会在成服务无法启动</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>crit</td>
 <td>比error更严重的错误信息</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td>alert</td>
 <td>已经很验证的问题了，比crit更严重</td>
 </tr>
-
 <tr>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-
 <tr>
 <td>0</td>
 <td>emerg</td>
@@ -302,18 +310,14 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-
 <h2 id="特殊符号">特殊符号</h2>
-
 <ul>
 <li><code>.</code> ：比后面还要严重的等级要记录下来；例如 <code>mail.info</code> 代表只要 mail 的日志，并且记录等级 &gt;=info 级别的日志</li>
 <li><code>.=</code>：只记录当前等级的日志</li>
 <li><code>.!</code>：低于该等级的日志会被记录</li>
 <li><code>.!=</code>：非该级别的日志</li>
 </ul>
-
 <h2 id="action-日志记录的位置">action 日志记录的位置</h2>
-
 <ul>
 <li><code>绝对路径</code>： 本地，如 /var/log/xxx</li>
 <li><code>|</code> : 通过管道发给给其他命令</li>
@@ -321,7 +325,6 @@ https://github.com/alex-shpak/hugo-book
 <li><code>@HOST</code>： 远程主机</li>
 <li><code>*</code> ： 登陆到系统上所有用户，一般 emerg 级别的日志是这样定义的</li>
 </ul>
-
 <h2 id="示例">示例</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># mail 相关，级别 &gt;= info 的日志记录到 /var/log/mail.log 文件中</span>
 mail.info	/var/log/mail.log	
@@ -351,64 +354,96 @@ user.info;mail.info	/var/log/xxx
 cron.!info,!debug	/var/log/xxx
 
 <span style="color:#75715e"># 写日志的时候不直接写入磁盘，而是先写入buffer，再批量写入磁盘，系统异常关闭的时候可能会丢日志</span>
-mail.info	 -/var/log/mail.log</code></pre></div>
-<h2 id="read-more">Read More</h2>
+mail.info	 -/var/log/mail.log
 
+</code></pre></div><h2 id="read-more">Read More</h2>
 <ul>
-<li>鸟哥 - <a href="http://linux.vbird.org/linux_basic/0570syslog.php">第十八章、認識與分析登錄檔</a></li>
-<li><a href="https://segmentfault.com/a/1190000003509909">Linux环境下使用rsyslog管理日志</a></li>
+<li>鸟哥 - 
+  <a href="http://linux.vbird.org/linux_basic/0570syslog.php">第十八章、認識與分析登錄檔</a></li>
+<li>
+  <a href="https://segmentfault.com/a/1190000003509909">Linux环境下使用rsyslog管理日志</a></li>
 </ul>
 </article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified Sep 21, 2019 by kaibin.yang' target="_blank" rel="noopener">
-      <img src="/Log/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/commit/79b21070854f3fd6c26cb789ea4e3f52d1bfc999" title='Last modified by kaibin.yang | Sep 21, 2019' target="_blank" rel="noopener">
+      <img src="/Log/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Sep 21, 2019</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Core.md" target="_blank" rel="noopener">
-      <img src="/Log/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Log/edit/master/HuGo/content/docs/Rsyslog/Core.md" target="_blank" rel="noopener">
+      <img src="/Log/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#rsyslog-核心概念">rsyslog 核心概念</a>
-<ul>
-<li><a href="#格式">格式</a></li>
-<li><a href="#服务名称-facility">服务名称（FACILITY）</a></li>
-<li><a href="#级别">级别</a></li>
-<li><a href="#特殊符号">特殊符号</a></li>
-<li><a href="#action-日志记录的位置">action 日志记录的位置</a></li>
-<li><a href="#示例">示例</a></li>
-<li><a href="#read-more">Read More</a></li>
-</ul></li>
-</ul>
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rsyslog-核心概念">rsyslog 核心概念</a>
+      <ul>
+        <li><a href="#格式">格式</a></li>
+        <li><a href="#服务名称facility">服务名称（FACILITY）</a></li>
+        <li><a href="#级别">级别</a></li>
+        <li><a href="#特殊符号">特殊符号</a></li>
+        <li><a href="#action-日志记录的位置">action 日志记录的位置</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
